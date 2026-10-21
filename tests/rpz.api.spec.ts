@@ -6,16 +6,17 @@ const RC = process.env.RECAPTCHA_TOKEN ?? '';
 const ADMIN = { email: process.env.ADMIN_EMAIL!, password: process.env.ADMIN_PASS!, remember: false, recaptcha_token: RC };
 const PASS = 'Password123';
 const NEW_PASS = 'PasswordBaru123';
-const stamp = Date.now();
+const stamp: number = getState().stamp ?? (() => { const t = Date.now(); setState({ stamp: t }); return t; })();
 const email = `qa.rpz.${stamp}@komdigi.go.id`;
-const ghost = 999999999;
+const ghost = '00000000-0000-7000-8000-000000000000'; // id berformat UUID tapi tidak ada
 let admin = '';
 let user = '';
 let userId: any;
+let victimId: any;
 
 // worker di-restart Playwright setiap ada test gagal, jadi state dipersist ke file
-test.beforeEach(() => { ({ admin = '', user = '', userId } = getState()); });
-test.afterEach(() => setState({ admin, user, userId }));
+test.beforeEach(() => { ({ admin = '', user = '', userId, victimId } = getState()); });
+test.afterEach(() => setState({ admin, user, userId, victimId }));
 
 const tok = (b: any) => b?.token ?? b?.access_token ?? b?.data?.token ?? b?.data?.access_token ?? '';
 const idOf = (b: any) => b?.data?.id ?? b?.id;
@@ -84,6 +85,13 @@ test('TC_USER_002 create user valid', async ({ request }) => {
   expect.soft(r.text).not.toMatch(/"password"/);
 });
 
+test('TC_USER_002b buat victim user', async ({ request }) => {
+  const r = await call(request, 'TC_PROF_005', 'POST', 'users',
+    { token: admin, data: newUser({ name: 'TEST - QA RPZ Victim', email: uniq('victim') }) });
+  expect.soft([200, 201]).toContain(r.status);
+  victimId = idOf(r.body);
+});
+
 test('TC_USER_003 validasi create', async ({ request }) => {
   const bad: Record<string, any> = {
     dupEmail: { email },
@@ -148,12 +156,24 @@ test('TC_USER_001 RBAC readonly', async ({ request }) => {
   const calls: [string, string, any?][] = [
     ['GET', 'users'],
     ['POST', 'users', newUser({ email: uniq('rbac') })],
+    ['PUT', `users/${victimId}`, { name: 'HACKED', role: 'readonly', email: uniq('hacked'), password: PASS, password_confirmation: PASS }],
+    ['DELETE', `users/${victimId}`],
     ['PUT', `users/${ghost}`, newUser()],
     ['DELETE', `users/${ghost}`],
   ];
   for (const [m, p, data] of calls) {
     const r = await call(request, 'TC_USER_001', m, p, { token: user, data });
     expect.soft(r.status, `${m} ${p}`).toBe(403);
+  }
+  const v = await call(request, 'TC_PROF_005', 'GET', `users/${victimId}`, { token: admin });
+  expect.soft(v.status, 'victim masih ada').toBe(200);
+  expect.soft(v.body?.data?.name, 'victim tidak berubah').toBe('TEST - QA RPZ Victim');
+});
+
+test('TC_RBAC readonly akses isps/rpz (informasional)', async ({ request }) => {
+  for (const p of ['isps', 'rpz', 'rpz/summary']) {
+    const r = await call(request, 'TC_RBAC_DATA', 'GET', p, { token: user });
+    noServerError(r.status);
   }
 });
 
@@ -221,6 +241,16 @@ test('TC_AUTH_003 brute force login', async ({ request }) => {
   expect.soft(codes, 'harus ada 429/lockout').toContain(429);
 });
 
+test('TC_AUTH_004 efek remember pada masa berlaku token', async ({ request }) => {
+  const login = (remember: boolean) => call(request, 'TC_AUTH_004', 'POST', 'auth/login',
+    { data: { email, password: NEW_PASS, remember, recaptcha_token: RC } });
+  const a = await login(false);
+  const b = await login(true);
+  const ttl = (r: any) => r.body?.data?.expires_in;
+  expect.soft(ttl(b), `remember=true (${ttl(b)}) harus lebih lama dari false (${ttl(a)})`).toBeGreaterThan(ttl(a));
+  user = tok(b.body) || user;
+});
+
 test('TC_AUTH_006 logout invalidate token', async ({ request }) => {
   const re = await call(request, 'TC_AUTH_006', 'POST', 'auth/login', { data: { email, password: NEW_PASS, remember: false, recaptcha_token: RC } });
   const t = tok(re.body) || user;
@@ -246,12 +276,17 @@ test('TC_GEN_001 format request', async ({ request }) => {
 });
 
 test('TC_USER_009 hapus user test', async ({ request }) => {
+  const pre = await call(request, 'TC_USER_009', 'POST', 'auth/login', { data: { email, password: NEW_PASS, remember: false, recaptcha_token: RC } });
+  const t2 = tok(pre.body);
   const d1 = await call(request, 'TC_USER_009', 'DELETE', `users/${userId}`, { token: admin });
   expect.soft([200, 204]).toContain(d1.status);
   expect.soft((await call(request, 'TC_USER_009', 'DELETE', `users/${userId}`, { token: admin })).status).toBe(404);
   expect.soft((await call(request, 'TC_USER_009', 'GET', `users/${userId}`, { token: admin })).status).toBe(404);
   const login = await call(request, 'TC_USER_009', 'POST', 'auth/login', { data: { email, password: NEW_PASS, remember: false, recaptcha_token: RC } });
   expect.soft([401, 422], 'user terhapus tidak boleh login').toContain(login.status);
+  const me = await call(request, 'TC_USER_009', 'GET', 'auth/me', { token: t2 });
+  expect.soft(me.status, 'token user terhapus harus ditolak').toBe(401);
+  if (victimId) await call(request, 'CLEANUP', 'DELETE', `users/${victimId}`, { token: admin });
 });
 
 test('TC_USER_010 self-delete superadmin', async ({ request }) => {
@@ -259,6 +294,65 @@ test('TC_USER_010 self-delete superadmin', async ({ request }) => {
   const me = await call(request, 'TC_USER_010', 'GET', 'auth/me', { token: admin });
   const r = await call(request, 'TC_USER_010', 'DELETE', `users/${idOf(me.body)}`, { token: admin });
   expect.soft(r.status, 'self-delete harus ditolak').toBeGreaterThanOrEqual(400);
+});
+
+async function walk(request: any, tc: string, path: string) {
+  const rows: any[] = [];
+  let page = 1, last = 1, total = 0;
+  do {
+    const r = await call(request, tc, 'GET', `${path}?per_page=50&page=${page}`, { token: admin });
+    expect.soft(r.status, `${path} page ${page}`).toBe(200);
+    last = r.body?.meta?.last_page ?? 1;
+    total = r.body?.meta?.total ?? 0;
+    rows.push(...(r.body?.data ?? []));
+    page++;
+  } while (page <= last && page < 50);
+  return { rows, total };
+}
+
+test('TC_ISP_001 list isps + konsistensi pagination', async ({ request }) => {
+  expect.soft((await call(request, 'TC_ISP_001', 'GET', 'isps')).status).toBe(401);
+  const { rows, total } = await walk(request, 'TC_ISP_001', 'isps');
+  expect.soft(rows.length, 'jumlah row semua halaman = meta.total').toBe(total);
+  expect.soft(new Set(rows.map(x => x.id)).size, 'tidak ada duplikat id antar halaman').toBe(rows.length);
+  expect.soft(new Set(rows.map(x => x.as_number)).size, 'as_number unik').toBe(rows.length);
+  const label: Record<string, string> = { rpz_only: 'RPZ Only', rtbh_only: 'RTBH Only', rpz_rtbh: 'RPZ & RTBH' };
+  for (const x of rows) expect.soft(label[x.service], `service ${x.service} (${x.name})`).toBe(x.service_label);
+  for (const q of ['per_page=0', 'per_page=101', 'page=abc', 'page=-1']) {
+    noServerError((await call(request, 'TC_ISP_001', 'GET', `isps?${q}`, { token: admin })).status);
+  }
+});
+
+test('TC_RPZ_001 list rpz + summary konsisten', async ({ request }) => {
+  expect.soft((await call(request, 'TC_RPZ_001', 'GET', 'rpz')).status).toBe(401);
+  expect.soft((await call(request, 'TC_RPZ_001', 'GET', 'rpz/summary')).status).toBe(401);
+  const sum = (await call(request, 'TC_RPZ_001', 'GET', 'rpz/summary', { token: admin })).body?.data ?? {};
+  const { rows, total } = await walk(request, 'TC_RPZ_001', 'rpz');
+  expect.soft(rows.length, 'row semua halaman = meta.total').toBe(total);
+  expect.soft(new Set(rows.map(x => x.id)).size, 'tidak ada duplikat id antar halaman').toBe(rows.length);
+  expect.soft(total, 'meta.total = summary.total_ip').toBe(sum.total_ip);
+  expect.soft(sum.total_axfr + sum.total_ixfr, 'axfr + ixfr = total_ip').toBe(sum.total_ip);
+  expect.soft(rows.filter(x => x.method === 'AXFR').length, 'jumlah AXFR = summary').toBe(sum.total_axfr);
+  expect.soft(rows.filter(x => x.method === 'IXFR').length, 'jumlah IXFR = summary').toBe(sum.total_ixfr);
+  const asn = new Set(rows.map(x => x.as_number).filter(Boolean));
+  expect.soft(asn.size, 'distinct as_number di rpz = summary.total_isp').toBe(sum.total_isp);
+  const ipv4 = /^(25[0-5]|2[0-4]\d|1?\d?\d)(\.(25[0-5]|2[0-4]\d|1?\d?\d)){3}$/;
+  for (const x of rows) {
+    expect.soft(ipv4.test(x.ip_address), `ip valid ${x.ip_address}`).toBe(true);
+    expect.soft(['AXFR', 'IXFR']).toContain(x.method);
+    expect.soft(x.last_sync_at >= x.first_sync_at, `last_sync >= first_sync (${x.ip_address})`).toBe(true);
+    expect.soft(Number.isInteger(x.last_serial), `last_serial integer (${x.ip_address})`).toBe(true);
+  }
+});
+
+test('TC_GEN_002 header keamanan response', async ({ request }) => {
+  const r = await call(request, 'TC_GEN_002', 'GET', 'auth/me', { token: admin });
+  const h = r.headers;
+  expect.soft(h['x-content-type-options'], 'X-Content-Type-Options').toBe('nosniff');
+  expect.soft(h['strict-transport-security'], 'HSTS').toBeTruthy();
+  expect.soft(h['cache-control'] ?? '', 'Cache-Control untuk data sensitif').toMatch(/no-store|no-cache|private/);
+  expect.soft(h['x-powered-by'], 'tidak bocorkan X-Powered-By').toBeUndefined();
+  expect.soft(h['server'] ?? '', 'Server tidak bocorkan versi').not.toMatch(/\d+\.\d+/);
 });
 
 // status 404 = tidak ada; 200/401/403/405/422 = endpoint ada
@@ -270,6 +364,9 @@ test('DISCOVERY endpoint tidak terdokumentasi', async ({ request }) => {
     'users/1/activate', 'users/1/deactivate', 'audit-logs', 'logs', 'health', 'docs', 'api-docs',
     'rpz/isps', 'rpz/domains', 'rpz/sync', 'rpz/zones', 'rpz/summary',
     'auth/login', 'auth/logout', // POST-only: kalau 404 (bukan 405), handler menyamarkan 405 jadi 404
+    'isps?search=Ambon', 'isps?service=rpz_only', 'isps?province=Maluku', 'rpz?method=IXFR', 'rpz?search=Batam',
+    'rpz?as_number=AS990044', 'rpz?sort=last_sync_at', 'isps/1', 'rpz/1',
   ];
   for (const p of paths) await call(request, 'DISCOVERY', 'GET', p, { token: admin });
+  for (const p of ['auth/forgot-password', 'auth/reset-password']) await call(request, 'DISCOVERY', 'POST', p, { data: {} });
 });
