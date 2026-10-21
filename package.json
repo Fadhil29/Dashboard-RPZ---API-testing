@@ -1,7 +1,11 @@
 {
   "name": "rpz-api-tests",
   "private": true,
-  "scripts": { "test": "playwright test", "report": "playwright show-report" },
+  "scripts": {
+    "test": "playwright test",
+    "report": "playwright show-report",
+    "rpz": "node scripts/run-and-push.js"
+  },
   "devDependencies": {
     "@playwright/test": "^1.49.0",
     "@types/node": "^22.0.0",

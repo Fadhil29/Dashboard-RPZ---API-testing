@@ -2,7 +2,7 @@ import { APIRequestContext } from '@playwright/test';
 import fs from 'fs';
 
 type Opts = { token?: string; data?: any; headers?: Record<string, string> };
-const entries: any[] = [];
+const LOG = 'responses/log.json';
 
 const mask = (v: any): any => {
   if (Array.isArray(v)) return v.map(mask);
@@ -19,8 +19,9 @@ export async function call(request: APIRequestContext, tc: string, method: strin
   const text = await res.text();
   let body: any = text.slice(0, 300);
   try { body = JSON.parse(text); } catch {}
-  entries.push({ tc, method, path, req: mask(o.data), status: res.status(), ms: Date.now() - t, body: mask(body) });
   fs.mkdirSync('responses', { recursive: true });
-  fs.writeFileSync('responses/log.json', JSON.stringify(entries, null, 2));
+  const cur = fs.existsSync(LOG) ? JSON.parse(fs.readFileSync(LOG, 'utf8')) : [];
+  cur.push({ tc, method, path, req: mask(o.data), status: res.status(), ms: Date.now() - t, body: mask(body) });
+  fs.writeFileSync(LOG, JSON.stringify(cur, null, 2));
   return { status: res.status(), body, text };
 }

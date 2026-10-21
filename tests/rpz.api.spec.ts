@@ -1,7 +1,9 @@
 import { test, expect } from '@playwright/test';
 import { call } from './helper';
+import { getState, setState } from './state';
 
-const ADMIN = { email: process.env.ADMIN_EMAIL!, password: process.env.ADMIN_PASS!, remember: false };
+const RC = process.env.RECAPTCHA_TOKEN ?? '';
+const ADMIN = { email: process.env.ADMIN_EMAIL!, password: process.env.ADMIN_PASS!, remember: false, recaptcha_token: RC };
 const PASS = 'Password123';
 const NEW_PASS = 'PasswordBaru123';
 const stamp = Date.now();
@@ -10,6 +12,10 @@ const ghost = 999999999;
 let admin = '';
 let user = '';
 let userId: any;
+
+// worker di-restart Playwright setiap ada test gagal, jadi state dipersist ke file
+test.beforeEach(() => { ({ admin = '', user = '', userId } = getState()); });
+test.afterEach(() => setState({ admin, user, userId }));
 
 const tok = (b: any) => b?.token ?? b?.access_token ?? b?.data?.token ?? b?.data?.access_token ?? '';
 const idOf = (b: any) => b?.data?.id ?? b?.id;
@@ -22,7 +28,7 @@ const uniq = (k: string) => `qa.${k}.${stamp}@komdigi.go.id`;
 test('TC_AUTH_001 login valid', async ({ request }) => {
   const r = await call(request, 'TC_AUTH_001', 'POST', 'auth/login', { data: ADMIN });
   expect.soft(r.status).toBe(200);
-  admin = tok(r.body);
+  admin = tok(r.body) || admin;
   expect.soft(admin, 'token ada').toBeTruthy();
   expect.soft(r.text).not.toContain(ADMIN.password);
   expect.soft(r.text).not.toMatch(/"password"/);
@@ -133,9 +139,9 @@ test('TC_PROF_001 route /users/profile vs /users/:id', async ({ request }) => {
 });
 
 test('login user test (readonly)', async ({ request }) => {
-  const r = await call(request, 'TC_AUTH_001b', 'POST', 'auth/login', { data: { email, password: PASS, remember: false } });
+  const r = await call(request, 'TC_AUTH_001b', 'POST', 'auth/login', { data: { email, password: PASS, remember: false, recaptcha_token: RC } });
   expect.soft(r.status).toBe(200);
-  user = tok(r.body);
+  user = tok(r.body) || user;
 });
 
 test('TC_USER_001 RBAC readonly', async ({ request }) => {
@@ -179,11 +185,11 @@ test('TC_PROF_003/004 ganti password', async ({ request }) => {
   const ok = await t({ password: NEW_PASS, current_password: PASS, password_confirmation: NEW_PASS });
   expect.soft(ok.status).toBe(200);
 
-  const old = await call(request, 'TC_PROF_003', 'POST', 'auth/login', { data: { email, password: PASS, remember: false } });
+  const old = await call(request, 'TC_PROF_003', 'POST', 'auth/login', { data: { email, password: PASS, remember: false, recaptcha_token: RC } });
   expect.soft([401, 422], 'password lama harus gagal').toContain(old.status);
   const oldTok = await call(request, 'TC_PROF_004', 'GET', 'auth/me', { token: user });
   expect.soft(oldTok.status, 'token lama setelah ganti password (rekomendasi: 401)').toBe(401);
-  const fresh = await call(request, 'TC_PROF_003', 'POST', 'auth/login', { data: { email, password: NEW_PASS, remember: false } });
+  const fresh = await call(request, 'TC_PROF_003', 'POST', 'auth/login', { data: { email, password: NEW_PASS, remember: false, recaptcha_token: RC } });
   expect.soft(fresh.status).toBe(200);
   user = tok(fresh.body);
 });
@@ -201,7 +207,7 @@ test('TC_AUTH_007/008 refresh', async ({ request }) => {
 
   const par = await Promise.all([1, 2].map(() => call(request, 'TC_AUTH_008', 'POST', 'auth/refresh', { token: user })));
   par.forEach(p => noServerError(p.status));
-  const re = await call(request, 'TC_AUTH_008', 'POST', 'auth/login', { data: { email, password: NEW_PASS, remember: false } });
+  const re = await call(request, 'TC_AUTH_008', 'POST', 'auth/login', { data: { email, password: NEW_PASS, remember: false, recaptcha_token: RC } });
   user = tok(re.body);
 });
 
@@ -209,14 +215,14 @@ test('TC_AUTH_003 brute force login', async ({ request }) => {
   test.skip(!process.env.RUN_BRUTE, 'set RUN_BRUTE=1 (akan mengunci akun test)');
   const codes: number[] = [];
   for (let i = 0; i < 12; i++) {
-    const r = await call(request, 'TC_AUTH_003', 'POST', 'auth/login', { data: { email, password: `Salah${i}`, remember: false } });
+    const r = await call(request, 'TC_AUTH_003', 'POST', 'auth/login', { data: { email, password: `Salah${i}`, remember: false, recaptcha_token: RC } });
     codes.push(r.status);
   }
   expect.soft(codes, 'harus ada 429/lockout').toContain(429);
 });
 
 test('TC_AUTH_006 logout invalidate token', async ({ request }) => {
-  const re = await call(request, 'TC_AUTH_006', 'POST', 'auth/login', { data: { email, password: NEW_PASS, remember: false } });
+  const re = await call(request, 'TC_AUTH_006', 'POST', 'auth/login', { data: { email, password: NEW_PASS, remember: false, recaptcha_token: RC } });
   const t = tok(re.body) || user;
   const out = await call(request, 'TC_AUTH_006', 'POST', 'auth/logout', { token: t });
   expect.soft(out.status).toBe(200);
@@ -244,7 +250,7 @@ test('TC_USER_009 hapus user test', async ({ request }) => {
   expect.soft([200, 204]).toContain(d1.status);
   expect.soft((await call(request, 'TC_USER_009', 'DELETE', `users/${userId}`, { token: admin })).status).toBe(404);
   expect.soft((await call(request, 'TC_USER_009', 'GET', `users/${userId}`, { token: admin })).status).toBe(404);
-  const login = await call(request, 'TC_USER_009', 'POST', 'auth/login', { data: { email, password: NEW_PASS, remember: false } });
+  const login = await call(request, 'TC_USER_009', 'POST', 'auth/login', { data: { email, password: NEW_PASS, remember: false, recaptcha_token: RC } });
   expect.soft([401, 422], 'user terhapus tidak boleh login').toContain(login.status);
 });
 
@@ -262,6 +268,8 @@ test('DISCOVERY endpoint tidak terdokumentasi', async ({ request }) => {
     'roles', 'permissions', 'users?search=a', 'users?role=readonly', 'users?sort=name',
     'auth/forgot-password', 'auth/reset-password', 'auth/logout-all', 'auth/sessions',
     'users/1/activate', 'users/1/deactivate', 'audit-logs', 'logs', 'health', 'docs', 'api-docs',
+    'rpz/isps', 'rpz/domains', 'rpz/sync', 'rpz/zones', 'rpz/summary',
+    'auth/login', 'auth/logout', // POST-only: kalau 404 (bukan 405), handler menyamarkan 405 jadi 404
   ];
   for (const p of paths) await call(request, 'DISCOVERY', 'GET', p, { token: admin });
 });

@@ -5,6 +5,7 @@ const base = (process.env.BASE_URL ?? 'https://be-dashboard-rpz.unictive.net/api
 
 export default defineConfig({
   testDir: './tests',
+  globalSetup: './tests/global-setup.ts',
   workers: 1,
   fullyParallel: false,
   retries: 0,
