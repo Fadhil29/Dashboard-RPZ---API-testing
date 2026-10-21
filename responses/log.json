@@ -1,0 +1,3130 @@
+[
+  {
+    "tc": "TC_AUTH_001",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {
+      "email": "test.fadhil@yopmail.com",
+      "password": "***",
+      "remember": false,
+      "recaptcha_token": "***"
+    },
+    "status": 200,
+    "ms": 788,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Login berhasil",
+      "data": {
+        "access_token": "***",
+        "type": "bearer",
+        "expires_in": 3600,
+        "user": {
+          "id": "01a15cc4-67a1-726b-95b1-b4fc1986e569",
+          "name": "testing_fadhil",
+          "email": "test.fadhil@yopmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 04:42:17",
+          "updated_at": "2026-10-21 04:42:17"
+        }
+      }
+    }
+  },
+  {
+    "tc": "TC_AUTH_002",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {
+      "email": "test.fadhil@yopmail.com",
+      "password": "***",
+      "remember": false,
+      "recaptcha_token": "***"
+    },
+    "status": 401,
+    "ms": 1463,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Email atau password salah",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_AUTH_002",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {
+      "email": "nobody.xyz@komdigi.go.id",
+      "password": "***",
+      "remember": false,
+      "recaptcha_token": "***"
+    },
+    "status": 401,
+    "ms": 692,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Email atau password salah",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_AUTH_002",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {},
+    "status": 422,
+    "ms": 652,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "email": [
+          "The email field is required."
+        ],
+        "password": "***",
+        "recaptcha_token": "***"
+      }
+    }
+  },
+  {
+    "tc": "TC_AUTH_002",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {
+      "email": "   ",
+      "password": "***"
+    },
+    "status": 422,
+    "ms": 753,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "email": [
+          "The email field is required."
+        ],
+        "password": "***",
+        "recaptcha_token": "***"
+      }
+    }
+  },
+  {
+    "tc": "TC_AUTH_002",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {
+      "email": "bukan-email",
+      "password": "***",
+      "remember": false,
+      "recaptcha_token": "***"
+    },
+    "status": 422,
+    "ms": 679,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "email": [
+          "The email field must be a valid email address."
+        ]
+      }
+    }
+  },
+  {
+    "tc": "TC_AUTH_002",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {
+      "email": null,
+      "password": "***"
+    },
+    "status": 422,
+    "ms": 587,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "email": [
+          "The email field is required."
+        ],
+        "password": "***",
+        "recaptcha_token": "***"
+      }
+    }
+  },
+  {
+    "tc": "TC_AUTH_002",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {
+      "email": "test.fadhil@yopmail.com",
+      "password": "***",
+      "remember": "abc",
+      "recaptcha_token": "***"
+    },
+    "status": 422,
+    "ms": 605,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "remember": [
+          "The remember field must be true or false."
+        ]
+      }
+    }
+  },
+  {
+    "tc": "TC_AUTH_005",
+    "method": "GET",
+    "path": "auth/me",
+    "status": 401,
+    "ms": 259,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_AUTH_005",
+    "method": "GET",
+    "path": "auth/me",
+    "status": 401,
+    "ms": 216,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_AUTH_005",
+    "method": "GET",
+    "path": "auth/me",
+    "status": 401,
+    "ms": 181,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_AUTH_005",
+    "method": "GET",
+    "path": "auth/me",
+    "status": 401,
+    "ms": 161,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_AUTH_005",
+    "method": "GET",
+    "path": "auth/me",
+    "status": 401,
+    "ms": 182,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_ROLE_001",
+    "method": "GET",
+    "path": "options/roles",
+    "status": 200,
+    "ms": 1301,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Opsi role berhasil diambil",
+      "data": [
+        {
+          "value": "superadmin",
+          "label": "Super Admin"
+        },
+        {
+          "value": "readonly",
+          "label": "Guest"
+        }
+      ]
+    }
+  },
+  {
+    "tc": "TC_ROLE_001",
+    "method": "GET",
+    "path": "options/roles",
+    "status": 401,
+    "ms": 576,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_USER_002",
+    "method": "POST",
+    "path": "users",
+    "req": {
+      "name": "TEST - QA RPZ",
+      "role": "readonly",
+      "email": "qa.rpz.1792565218456@komdigi.go.id",
+      "password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 201,
+    "ms": 1384,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Pengguna berhasil ditambahkan",
+      "data": {
+        "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+        "name": "TEST - QA RPZ",
+        "email": "qa.rpz.1792565218456@komdigi.go.id",
+        "role": "Guest",
+        "created_at": "2026-10-21 06:47:08",
+        "updated_at": "2026-10-21 06:47:08"
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_003",
+    "method": "POST",
+    "path": "users",
+    "req": {
+      "name": "TEST - QA RPZ",
+      "role": "readonly",
+      "email": "qa.rpz.1792565218456@komdigi.go.id",
+      "password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 422,
+    "ms": 1202,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "email": [
+          "The email has already been taken."
+        ]
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_003",
+    "method": "POST",
+    "path": "users",
+    "req": {
+      "name": "TEST - QA RPZ",
+      "role": "readonly",
+      "email": "QA.RPZ.1792565218456@KOMDIGI.GO.ID",
+      "password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 422,
+    "ms": 637,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "email": [
+          "The email has already been taken."
+        ]
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_003",
+    "method": "POST",
+    "path": "users",
+    "req": {
+      "name": "TEST - QA RPZ",
+      "role": "readonly",
+      "email": "x",
+      "password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 422,
+    "ms": 676,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "email": [
+          "The email field must be a valid email address."
+        ]
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_003",
+    "method": "POST",
+    "path": "users",
+    "req": {
+      "name": "",
+      "role": "readonly",
+      "email": "qa.en.1792565218456@komdigi.go.id",
+      "password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 422,
+    "ms": 684,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "name": [
+          "The name field is required."
+        ]
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_003",
+    "method": "POST",
+    "path": "users",
+    "req": {
+      "name": "   ",
+      "role": "readonly",
+      "email": "qa.sn.1792565218456@komdigi.go.id",
+      "password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 422,
+    "ms": 619,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "name": [
+          "The name field is required."
+        ]
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_003",
+    "method": "POST",
+    "path": "users",
+    "req": {
+      "name": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+      "role": "readonly",
+      "email": "qa.ln.1792565218456@komdigi.go.id",
+      "password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 422,
+    "ms": 631,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "name": [
+          "The name field must not be greater than 255 characters."
+        ]
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_003",
+    "method": "POST",
+    "path": "users",
+    "req": {
+      "name": "TEST - QA RPZ",
+      "role": "tidak-ada",
+      "email": "qa.br.1792565218456@komdigi.go.id",
+      "password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 422,
+    "ms": 617,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "role": [
+          "The selected role is invalid."
+        ]
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_003",
+    "method": "POST",
+    "path": "users",
+    "req": {
+      "name": "TEST - QA RPZ",
+      "role": "readonly",
+      "email": "qa.sp.1792565218456@komdigi.go.id",
+      "password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 422,
+    "ms": 718,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "password": "***"
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_003",
+    "method": "POST",
+    "path": "users",
+    "req": {
+      "name": "TEST - QA RPZ",
+      "role": "readonly",
+      "email": "qa.mm.1792565218456@komdigi.go.id",
+      "password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 422,
+    "ms": 678,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "password": "***"
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_003",
+    "method": "POST",
+    "path": "users",
+    "req": {
+      "name": "<script>alert(1)</script>",
+      "role": "readonly",
+      "email": "qa.xss.1792565218456@komdigi.go.id",
+      "password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 201,
+    "ms": 849,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Pengguna berhasil ditambahkan",
+      "data": {
+        "id": "01a15d36-d143-73fb-8c8e-bbc8864dda53",
+        "name": "<script>alert(1)</script>",
+        "email": "qa.xss.1792565218456@komdigi.go.id",
+        "role": "Guest",
+        "created_at": "2026-10-21 06:47:16",
+        "updated_at": "2026-10-21 06:47:16"
+      }
+    }
+  },
+  {
+    "tc": "CLEANUP",
+    "method": "DELETE",
+    "path": "users/01a15d36-d143-73fb-8c8e-bbc8864dda53",
+    "status": 200,
+    "ms": 569,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Pengguna berhasil dihapus",
+      "data": null
+    }
+  },
+  {
+    "tc": "TC_USER_005",
+    "method": "POST",
+    "path": "users",
+    "req": {
+      "name": "TEST - QA RPZ",
+      "role": "readonly",
+      "email": "qa.dup.1792565218456@komdigi.go.id",
+      "password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 201,
+    "ms": 588,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Pengguna berhasil ditambahkan",
+      "data": {
+        "id": "01a15d36-d6e8-707d-8c62-86a1f75db46e",
+        "name": "TEST - QA RPZ",
+        "email": "qa.dup.1792565218456@komdigi.go.id",
+        "role": "Guest",
+        "created_at": "2026-10-21 06:47:17",
+        "updated_at": "2026-10-21 06:47:17"
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_005",
+    "method": "POST",
+    "path": "users",
+    "req": {
+      "name": "TEST - QA RPZ",
+      "role": "readonly",
+      "email": "qa.dup.1792565218456@komdigi.go.id",
+      "password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 422,
+    "ms": 1348,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "email": [
+          "The email has already been taken."
+        ]
+      }
+    }
+  },
+  {
+    "tc": "CLEANUP",
+    "method": "DELETE",
+    "path": "users/01a15d36-d6e8-707d-8c62-86a1f75db46e",
+    "status": 200,
+    "ms": 570,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Pengguna berhasil dihapus",
+      "data": null
+    }
+  },
+  {
+    "tc": "TC_USER_006",
+    "method": "GET",
+    "path": "users/0",
+    "status": 404,
+    "ms": 460,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "UnictiveAPI: Resource or Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_USER_006",
+    "method": "GET",
+    "path": "users/-1",
+    "status": 404,
+    "ms": 280,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "UnictiveAPI: Resource or Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_USER_006",
+    "method": "GET",
+    "path": "users/abc",
+    "status": 404,
+    "ms": 280,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "UnictiveAPI: Resource or Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_USER_006",
+    "method": "GET",
+    "path": "users/999999999",
+    "status": 404,
+    "ms": 259,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "UnictiveAPI: Resource or Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_USER_006",
+    "method": "GET",
+    "path": "users/99999999999999999999",
+    "status": 404,
+    "ms": 258,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "UnictiveAPI: Resource or Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_USER_006",
+    "method": "GET",
+    "path": "users/1'%20OR%20'1'%3D'1",
+    "status": 404,
+    "ms": 267,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "UnictiveAPI: Resource or Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_USER_007",
+    "method": "GET",
+    "path": "users",
+    "status": 401,
+    "ms": 1069,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_USER_007",
+    "method": "GET",
+    "path": "users",
+    "status": 200,
+    "ms": 624,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Data pengguna berhasil diambil",
+      "data": [
+        {
+          "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+          "name": "TEST - QA RPZ",
+          "email": "qa.rpz.1792565218456@komdigi.go.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:47:08",
+          "updated_at": "2026-10-21 06:47:08"
+        },
+        {
+          "id": "01a15d30-203c-7255-8c94-29ba2d81972a",
+          "name": "admin123",
+          "email": "admin@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 06:39:57",
+          "updated_at": "2026-10-21 06:44:01"
+        },
+        {
+          "id": "01a15d1c-b423-716a-9b92-a8567058c405",
+          "name": "ikbar test 3",
+          "email": "ikbar3@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:18:44",
+          "updated_at": "2026-10-21 06:18:44"
+        },
+        {
+          "id": "01a15cc4-9693-73f0-9ac4-f75f79f47e68",
+          "name": "Jam User Test",
+          "email": "userjamv2@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 04:42:29",
+          "updated_at": "2026-10-21 06:46:44"
+        },
+        {
+          "id": "01a15cc4-67a1-726b-95b1-b4fc1986e569",
+          "name": "testing_fadhil",
+          "email": "test.fadhil@yopmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 04:42:17",
+          "updated_at": "2026-10-21 04:42:17"
+        },
+        {
+          "id": "01a15c80-7eda-72ef-97c1-82717a314cea",
+          "name": "Said Tester",
+          "email": "saidunictive@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 03:28:07",
+          "updated_at": "2026-10-21 03:28:07"
+        },
+        {
+          "id": "01a15c7e-8f4e-71b2-99ed-a2ba43c1d5a8",
+          "name": "Said Test V2",
+          "email": "saidunictive1@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 03:26:00",
+          "updated_at": "2026-10-21 03:26:00"
+        },
+        {
+          "id": "01a15c6d-c46f-70e4-b25d-a772adb2fda6",
+          "name": "ikbar test 2",
+          "email": "ikbar2@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 03:07:40",
+          "updated_at": "2026-10-21 03:07:40"
+        },
+        {
+          "id": "01a15c4a-514d-704a-a2ab-89a2eecdd6b3",
+          "name": "feisal",
+          "email": "feisal.dharma.yuda@unictive.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 02:28:56",
+          "updated_at": "2026-10-21 03:26:54"
+        },
+        {
+          "id": "01a158c8-19e3-720f-9ed4-c14fb1dcf7ac",
+          "name": "Ikbar Test",
+          "email": "ikbarysme@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 10:07:51",
+          "updated_at": "2026-10-20 10:07:51"
+        },
+        {
+          "id": "01a158bc-c9cf-7380-90a5-1da7ac7de400",
+          "name": "Testing User",
+          "email": "testing@unictive.com",
+          "role": "Guest",
+          "created_at": "2026-10-20 09:55:29",
+          "updated_at": "2026-10-21 03:21:30"
+        },
+        {
+          "id": "01a158a1-2f86-702b-b664-de20927ca1c1",
+          "name": "Arie",
+          "email": "arie@unictive.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 09:25:20",
+          "updated_at": "2026-10-20 09:25:20"
+        },
+        {
+          "id": "01a15858-24f7-7216-87d8-518ee5bf388c",
+          "name": "Said Tester",
+          "email": "said.tester.new@example.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 08:05:34",
+          "updated_at": "2026-10-21 04:39:35"
+        },
+        {
+          "id": "01a1584b-1fee-7352-8d43-62bcd372d50c",
+          "name": "TEST - Manajemen Pengguna Edit",
+          "email": "test.pengguna50@komdigi.go.id",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 07:51:20",
+          "updated_at": "2026-10-21 04:43:58"
+        }
+      ],
+      "links": {
+        "first": "http://be-dashboard-rpz.unictive.net/api/v1/users?page=1",
+        "last": "http://be-dashboard-rpz.unictive.net/api/v1/users?page=1",
+        "prev": null,
+        "next": null
+      },
+      "meta": {
+        "path": "http://be-dashboard-rpz.unictive.net/api/v1/users",
+        "current_page": 1,
+        "last_page": 1,
+        "per_page": 15,
+        "total": 14,
+        "from": 1,
+        "to": 14
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_007",
+    "method": "GET",
+    "path": "users?page=1&per_page=1",
+    "status": 200,
+    "ms": 577,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Data pengguna berhasil diambil",
+      "data": [
+        {
+          "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+          "name": "TEST - QA RPZ",
+          "email": "qa.rpz.1792565218456@komdigi.go.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:47:08",
+          "updated_at": "2026-10-21 06:47:08"
+        }
+      ],
+      "links": {
+        "first": "http://be-dashboard-rpz.unictive.net/api/v1/users?per_page=1&page=1",
+        "last": "http://be-dashboard-rpz.unictive.net/api/v1/users?per_page=1&page=14",
+        "prev": null,
+        "next": "http://be-dashboard-rpz.unictive.net/api/v1/users?per_page=1&page=2"
+      },
+      "meta": {
+        "path": "http://be-dashboard-rpz.unictive.net/api/v1/users",
+        "current_page": 1,
+        "last_page": 14,
+        "per_page": 1,
+        "total": 14,
+        "from": 1,
+        "to": 1
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_007",
+    "method": "GET",
+    "path": "users?page=0",
+    "status": 200,
+    "ms": 594,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Data pengguna berhasil diambil",
+      "data": [
+        {
+          "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+          "name": "TEST - QA RPZ",
+          "email": "qa.rpz.1792565218456@komdigi.go.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:47:08",
+          "updated_at": "2026-10-21 06:47:08"
+        },
+        {
+          "id": "01a15d30-203c-7255-8c94-29ba2d81972a",
+          "name": "admin123",
+          "email": "admin@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 06:39:57",
+          "updated_at": "2026-10-21 06:44:01"
+        },
+        {
+          "id": "01a15d1c-b423-716a-9b92-a8567058c405",
+          "name": "ikbar test 3",
+          "email": "ikbar3@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:18:44",
+          "updated_at": "2026-10-21 06:18:44"
+        },
+        {
+          "id": "01a15cc4-9693-73f0-9ac4-f75f79f47e68",
+          "name": "Jam User Test",
+          "email": "userjamv2@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 04:42:29",
+          "updated_at": "2026-10-21 06:46:44"
+        },
+        {
+          "id": "01a15cc4-67a1-726b-95b1-b4fc1986e569",
+          "name": "testing_fadhil",
+          "email": "test.fadhil@yopmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 04:42:17",
+          "updated_at": "2026-10-21 04:42:17"
+        },
+        {
+          "id": "01a15c80-7eda-72ef-97c1-82717a314cea",
+          "name": "Said Tester",
+          "email": "saidunictive@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 03:28:07",
+          "updated_at": "2026-10-21 03:28:07"
+        },
+        {
+          "id": "01a15c7e-8f4e-71b2-99ed-a2ba43c1d5a8",
+          "name": "Said Test V2",
+          "email": "saidunictive1@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 03:26:00",
+          "updated_at": "2026-10-21 03:26:00"
+        },
+        {
+          "id": "01a15c6d-c46f-70e4-b25d-a772adb2fda6",
+          "name": "ikbar test 2",
+          "email": "ikbar2@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 03:07:40",
+          "updated_at": "2026-10-21 03:07:40"
+        },
+        {
+          "id": "01a15c4a-514d-704a-a2ab-89a2eecdd6b3",
+          "name": "feisal",
+          "email": "feisal.dharma.yuda@unictive.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 02:28:56",
+          "updated_at": "2026-10-21 03:26:54"
+        },
+        {
+          "id": "01a158c8-19e3-720f-9ed4-c14fb1dcf7ac",
+          "name": "Ikbar Test",
+          "email": "ikbarysme@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 10:07:51",
+          "updated_at": "2026-10-20 10:07:51"
+        },
+        {
+          "id": "01a158bc-c9cf-7380-90a5-1da7ac7de400",
+          "name": "Testing User",
+          "email": "testing@unictive.com",
+          "role": "Guest",
+          "created_at": "2026-10-20 09:55:29",
+          "updated_at": "2026-10-21 03:21:30"
+        },
+        {
+          "id": "01a158a1-2f86-702b-b664-de20927ca1c1",
+          "name": "Arie",
+          "email": "arie@unictive.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 09:25:20",
+          "updated_at": "2026-10-20 09:25:20"
+        },
+        {
+          "id": "01a15858-24f7-7216-87d8-518ee5bf388c",
+          "name": "Said Tester",
+          "email": "said.tester.new@example.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 08:05:34",
+          "updated_at": "2026-10-21 04:39:35"
+        },
+        {
+          "id": "01a1584b-1fee-7352-8d43-62bcd372d50c",
+          "name": "TEST - Manajemen Pengguna Edit",
+          "email": "test.pengguna50@komdigi.go.id",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 07:51:20",
+          "updated_at": "2026-10-21 04:43:58"
+        }
+      ],
+      "links": {
+        "first": "http://be-dashboard-rpz.unictive.net/api/v1/users?page=1",
+        "last": "http://be-dashboard-rpz.unictive.net/api/v1/users?page=1",
+        "prev": null,
+        "next": null
+      },
+      "meta": {
+        "path": "http://be-dashboard-rpz.unictive.net/api/v1/users",
+        "current_page": 1,
+        "last_page": 1,
+        "per_page": 15,
+        "total": 14,
+        "from": 1,
+        "to": 14
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_007",
+    "method": "GET",
+    "path": "users?page=-1",
+    "status": 200,
+    "ms": 608,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Data pengguna berhasil diambil",
+      "data": [
+        {
+          "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+          "name": "TEST - QA RPZ",
+          "email": "qa.rpz.1792565218456@komdigi.go.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:47:08",
+          "updated_at": "2026-10-21 06:47:08"
+        },
+        {
+          "id": "01a15d30-203c-7255-8c94-29ba2d81972a",
+          "name": "admin123",
+          "email": "admin@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 06:39:57",
+          "updated_at": "2026-10-21 06:44:01"
+        },
+        {
+          "id": "01a15d1c-b423-716a-9b92-a8567058c405",
+          "name": "ikbar test 3",
+          "email": "ikbar3@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:18:44",
+          "updated_at": "2026-10-21 06:18:44"
+        },
+        {
+          "id": "01a15cc4-9693-73f0-9ac4-f75f79f47e68",
+          "name": "Jam User Test",
+          "email": "userjamv2@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 04:42:29",
+          "updated_at": "2026-10-21 06:46:44"
+        },
+        {
+          "id": "01a15cc4-67a1-726b-95b1-b4fc1986e569",
+          "name": "testing_fadhil",
+          "email": "test.fadhil@yopmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 04:42:17",
+          "updated_at": "2026-10-21 04:42:17"
+        },
+        {
+          "id": "01a15c80-7eda-72ef-97c1-82717a314cea",
+          "name": "Said Tester",
+          "email": "saidunictive@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 03:28:07",
+          "updated_at": "2026-10-21 03:28:07"
+        },
+        {
+          "id": "01a15c7e-8f4e-71b2-99ed-a2ba43c1d5a8",
+          "name": "Said Test V2",
+          "email": "saidunictive1@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 03:26:00",
+          "updated_at": "2026-10-21 03:26:00"
+        },
+        {
+          "id": "01a15c6d-c46f-70e4-b25d-a772adb2fda6",
+          "name": "ikbar test 2",
+          "email": "ikbar2@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 03:07:40",
+          "updated_at": "2026-10-21 03:07:40"
+        },
+        {
+          "id": "01a15c4a-514d-704a-a2ab-89a2eecdd6b3",
+          "name": "feisal",
+          "email": "feisal.dharma.yuda@unictive.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 02:28:56",
+          "updated_at": "2026-10-21 03:26:54"
+        },
+        {
+          "id": "01a158c8-19e3-720f-9ed4-c14fb1dcf7ac",
+          "name": "Ikbar Test",
+          "email": "ikbarysme@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 10:07:51",
+          "updated_at": "2026-10-20 10:07:51"
+        },
+        {
+          "id": "01a158bc-c9cf-7380-90a5-1da7ac7de400",
+          "name": "Testing User",
+          "email": "testing@unictive.com",
+          "role": "Guest",
+          "created_at": "2026-10-20 09:55:29",
+          "updated_at": "2026-10-21 03:21:30"
+        },
+        {
+          "id": "01a158a1-2f86-702b-b664-de20927ca1c1",
+          "name": "Arie",
+          "email": "arie@unictive.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 09:25:20",
+          "updated_at": "2026-10-20 09:25:20"
+        },
+        {
+          "id": "01a15858-24f7-7216-87d8-518ee5bf388c",
+          "name": "Said Tester",
+          "email": "said.tester.new@example.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 08:05:34",
+          "updated_at": "2026-10-21 04:39:35"
+        },
+        {
+          "id": "01a1584b-1fee-7352-8d43-62bcd372d50c",
+          "name": "TEST - Manajemen Pengguna Edit",
+          "email": "test.pengguna50@komdigi.go.id",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 07:51:20",
+          "updated_at": "2026-10-21 04:43:58"
+        }
+      ],
+      "links": {
+        "first": "http://be-dashboard-rpz.unictive.net/api/v1/users?page=1",
+        "last": "http://be-dashboard-rpz.unictive.net/api/v1/users?page=1",
+        "prev": null,
+        "next": null
+      },
+      "meta": {
+        "path": "http://be-dashboard-rpz.unictive.net/api/v1/users",
+        "current_page": 1,
+        "last_page": 1,
+        "per_page": 15,
+        "total": 14,
+        "from": 1,
+        "to": 14
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_007",
+    "method": "GET",
+    "path": "users?page=abc",
+    "status": 200,
+    "ms": 574,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Data pengguna berhasil diambil",
+      "data": [
+        {
+          "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+          "name": "TEST - QA RPZ",
+          "email": "qa.rpz.1792565218456@komdigi.go.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:47:08",
+          "updated_at": "2026-10-21 06:47:08"
+        },
+        {
+          "id": "01a15d30-203c-7255-8c94-29ba2d81972a",
+          "name": "admin123",
+          "email": "admin@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 06:39:57",
+          "updated_at": "2026-10-21 06:44:01"
+        },
+        {
+          "id": "01a15d1c-b423-716a-9b92-a8567058c405",
+          "name": "ikbar test 3",
+          "email": "ikbar3@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:18:44",
+          "updated_at": "2026-10-21 06:18:44"
+        },
+        {
+          "id": "01a15cc4-9693-73f0-9ac4-f75f79f47e68",
+          "name": "Jam User Test",
+          "email": "userjamv2@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 04:42:29",
+          "updated_at": "2026-10-21 06:46:44"
+        },
+        {
+          "id": "01a15cc4-67a1-726b-95b1-b4fc1986e569",
+          "name": "testing_fadhil",
+          "email": "test.fadhil@yopmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 04:42:17",
+          "updated_at": "2026-10-21 04:42:17"
+        },
+        {
+          "id": "01a15c80-7eda-72ef-97c1-82717a314cea",
+          "name": "Said Tester",
+          "email": "saidunictive@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 03:28:07",
+          "updated_at": "2026-10-21 03:28:07"
+        },
+        {
+          "id": "01a15c7e-8f4e-71b2-99ed-a2ba43c1d5a8",
+          "name": "Said Test V2",
+          "email": "saidunictive1@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 03:26:00",
+          "updated_at": "2026-10-21 03:26:00"
+        },
+        {
+          "id": "01a15c6d-c46f-70e4-b25d-a772adb2fda6",
+          "name": "ikbar test 2",
+          "email": "ikbar2@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 03:07:40",
+          "updated_at": "2026-10-21 03:07:40"
+        },
+        {
+          "id": "01a15c4a-514d-704a-a2ab-89a2eecdd6b3",
+          "name": "feisal",
+          "email": "feisal.dharma.yuda@unictive.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 02:28:56",
+          "updated_at": "2026-10-21 03:26:54"
+        },
+        {
+          "id": "01a158c8-19e3-720f-9ed4-c14fb1dcf7ac",
+          "name": "Ikbar Test",
+          "email": "ikbarysme@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 10:07:51",
+          "updated_at": "2026-10-20 10:07:51"
+        },
+        {
+          "id": "01a158bc-c9cf-7380-90a5-1da7ac7de400",
+          "name": "Testing User",
+          "email": "testing@unictive.com",
+          "role": "Guest",
+          "created_at": "2026-10-20 09:55:29",
+          "updated_at": "2026-10-21 03:21:30"
+        },
+        {
+          "id": "01a158a1-2f86-702b-b664-de20927ca1c1",
+          "name": "Arie",
+          "email": "arie@unictive.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 09:25:20",
+          "updated_at": "2026-10-20 09:25:20"
+        },
+        {
+          "id": "01a15858-24f7-7216-87d8-518ee5bf388c",
+          "name": "Said Tester",
+          "email": "said.tester.new@example.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 08:05:34",
+          "updated_at": "2026-10-21 04:39:35"
+        },
+        {
+          "id": "01a1584b-1fee-7352-8d43-62bcd372d50c",
+          "name": "TEST - Manajemen Pengguna Edit",
+          "email": "test.pengguna50@komdigi.go.id",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 07:51:20",
+          "updated_at": "2026-10-21 04:43:58"
+        }
+      ],
+      "links": {
+        "first": "http://be-dashboard-rpz.unictive.net/api/v1/users?page=1",
+        "last": "http://be-dashboard-rpz.unictive.net/api/v1/users?page=1",
+        "prev": null,
+        "next": null
+      },
+      "meta": {
+        "path": "http://be-dashboard-rpz.unictive.net/api/v1/users",
+        "current_page": 1,
+        "last_page": 1,
+        "per_page": 15,
+        "total": 14,
+        "from": 1,
+        "to": 14
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_007",
+    "method": "GET",
+    "path": "users?per_page=0",
+    "status": 422,
+    "ms": 574,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "per_page": [
+          "The per page field must be at least 1."
+        ]
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_007",
+    "method": "GET",
+    "path": "users?per_page=100000",
+    "status": 422,
+    "ms": 594,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "per_page": [
+          "The per page field must not be greater than 100."
+        ]
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_007",
+    "method": "GET",
+    "path": "users?page=99999",
+    "status": 200,
+    "ms": 626,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Data pengguna berhasil diambil",
+      "data": [],
+      "links": {
+        "first": "http://be-dashboard-rpz.unictive.net/api/v1/users?page=1",
+        "last": "http://be-dashboard-rpz.unictive.net/api/v1/users?page=1",
+        "prev": "http://be-dashboard-rpz.unictive.net/api/v1/users?page=99998",
+        "next": null
+      },
+      "meta": {
+        "path": "http://be-dashboard-rpz.unictive.net/api/v1/users",
+        "current_page": 99999,
+        "last_page": 1,
+        "per_page": 15,
+        "total": 14,
+        "from": null,
+        "to": null
+      }
+    }
+  },
+  {
+    "tc": "TC_PROF_001",
+    "method": "GET",
+    "path": "users/profile",
+    "status": 200,
+    "ms": 551,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Data profil berhasil diambil",
+      "data": {
+        "id": "01a15cc4-67a1-726b-95b1-b4fc1986e569",
+        "name": "testing_fadhil",
+        "email": "test.fadhil@yopmail.com",
+        "role": "Super Admin",
+        "created_at": "2026-10-21 04:42:17",
+        "updated_at": "2026-10-21 04:42:17"
+      }
+    }
+  },
+  {
+    "tc": "TC_AUTH_001b",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {
+      "email": "qa.rpz.1792565218456@komdigi.go.id",
+      "password": "***",
+      "remember": false,
+      "recaptcha_token": "***"
+    },
+    "status": 200,
+    "ms": 486,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Login berhasil",
+      "data": {
+        "access_token": "***",
+        "type": "bearer",
+        "expires_in": 3600,
+        "user": {
+          "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+          "name": "TEST - QA RPZ",
+          "email": "qa.rpz.1792565218456@komdigi.go.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:47:08",
+          "updated_at": "2026-10-21 06:47:08"
+        }
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_001",
+    "method": "GET",
+    "path": "users",
+    "status": 403,
+    "ms": 383,
+    "body": {
+      "success": false,
+      "code": "FORBIDDEN",
+      "message": "Anda tidak memiliki akses ke fitur ini.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_USER_001",
+    "method": "POST",
+    "path": "users",
+    "req": {
+      "name": "TEST - QA RPZ",
+      "role": "readonly",
+      "email": "qa.rbac.1792565218456@komdigi.go.id",
+      "password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 403,
+    "ms": 342,
+    "body": {
+      "success": false,
+      "code": "FORBIDDEN",
+      "message": "Anda tidak memiliki akses ke fitur ini.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_USER_001",
+    "method": "PUT",
+    "path": "users/999999999",
+    "req": {
+      "name": "TEST - QA RPZ",
+      "role": "readonly",
+      "email": "qa.rpz.1792565218456@komdigi.go.id",
+      "password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 404,
+    "ms": 256,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "UnictiveAPI: Resource or Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_USER_001",
+    "method": "DELETE",
+    "path": "users/999999999",
+    "status": 404,
+    "ms": 244,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "UnictiveAPI: Resource or Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_USER_004",
+    "method": "PUT",
+    "path": "users/profile",
+    "req": {
+      "name": "TEST - QA RPZ",
+      "email": "qa.rpz.1792565250320@komdigi.go.id",
+      "role": "superadmin",
+      "is_active": true
+    },
+    "status": 200,
+    "ms": 1195,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Profil berhasil diperbarui",
+      "data": {
+        "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+        "name": "TEST - QA RPZ",
+        "email": "qa.rpz.1792565250320@komdigi.go.id",
+        "role": "Guest",
+        "created_at": "2026-10-21 06:47:08",
+        "updated_at": "2026-10-21 06:47:30"
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_004",
+    "method": "GET",
+    "path": "auth/me",
+    "status": 200,
+    "ms": 570,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Data user berhasil diambil",
+      "data": {
+        "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+        "name": "TEST - QA RPZ",
+        "email": "qa.rpz.1792565250320@komdigi.go.id",
+        "role": "Guest",
+        "created_at": "2026-10-21 06:47:08",
+        "updated_at": "2026-10-21 06:47:30"
+      }
+    }
+  },
+  {
+    "tc": "TC_PROF_002",
+    "method": "PUT",
+    "path": "users/profile",
+    "req": {
+      "name": "TEST - QA RPZ Edit",
+      "email": "qa.rpz.1792565250320@komdigi.go.id"
+    },
+    "status": 200,
+    "ms": 281,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Profil berhasil diperbarui",
+      "data": {
+        "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+        "name": "TEST - QA RPZ Edit",
+        "email": "qa.rpz.1792565250320@komdigi.go.id",
+        "role": "Guest",
+        "created_at": "2026-10-21 06:47:08",
+        "updated_at": "2026-10-21 06:47:32"
+      }
+    }
+  },
+  {
+    "tc": "TC_PROF_002",
+    "method": "PUT",
+    "path": "users/profile",
+    "req": {
+      "name": "TEST - QA RPZ Edit",
+      "email": "test.fadhil@yopmail.com"
+    },
+    "status": 422,
+    "ms": 248,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "email": [
+          "The email has already been taken."
+        ]
+      }
+    }
+  },
+  {
+    "tc": "TC_PROF_003",
+    "method": "PUT",
+    "path": "users/profile/password",
+    "req": {
+      "password": "***",
+      "current_password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 422,
+    "ms": 621,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "current_password": "***"
+      }
+    }
+  },
+  {
+    "tc": "TC_PROF_003",
+    "method": "PUT",
+    "path": "users/profile/password",
+    "req": {
+      "password": "***",
+      "current_password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 422,
+    "ms": 444,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "password": "***"
+      }
+    }
+  },
+  {
+    "tc": "TC_PROF_003",
+    "method": "PUT",
+    "path": "users/profile/password",
+    "req": {
+      "password": "***",
+      "current_password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 422,
+    "ms": 482,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "password": "***"
+      }
+    }
+  },
+  {
+    "tc": "TC_PROF_003",
+    "method": "PUT",
+    "path": "users/profile/password",
+    "req": {
+      "password": "***",
+      "current_password": "***",
+      "password_confirmation": "***"
+    },
+    "status": 200,
+    "ms": 675,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Password berhasil diperbarui",
+      "data": null
+    }
+  },
+  {
+    "tc": "TC_PROF_003",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {
+      "email": "qa.rpz.1792565250320@komdigi.go.id",
+      "password": "***",
+      "remember": false,
+      "recaptcha_token": "***"
+    },
+    "status": 401,
+    "ms": 527,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Email atau password salah",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_PROF_004",
+    "method": "GET",
+    "path": "auth/me",
+    "status": 401,
+    "ms": 245,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_PROF_003",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {
+      "email": "qa.rpz.1792565250320@komdigi.go.id",
+      "password": "***",
+      "remember": false,
+      "recaptcha_token": "***"
+    },
+    "status": 200,
+    "ms": 480,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Login berhasil",
+      "data": {
+        "access_token": "***",
+        "type": "bearer",
+        "expires_in": 3600,
+        "user": {
+          "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+          "name": "TEST - QA RPZ Edit",
+          "email": "qa.rpz.1792565250320@komdigi.go.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:47:08",
+          "updated_at": "2026-10-21 06:47:34"
+        }
+      }
+    }
+  },
+  {
+    "tc": "TC_AUTH_007",
+    "method": "POST",
+    "path": "auth/refresh",
+    "status": 200,
+    "ms": 520,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Token berhasil diperbarui",
+      "data": {
+        "access_token": "***",
+        "type": "bearer",
+        "expires_in": 3600,
+        "user": {
+          "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+          "name": "TEST - QA RPZ Edit",
+          "email": "qa.rpz.1792565250320@komdigi.go.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:47:08",
+          "updated_at": "2026-10-21 06:47:34"
+        }
+      }
+    }
+  },
+  {
+    "tc": "TC_AUTH_007",
+    "method": "GET",
+    "path": "auth/me",
+    "status": 401,
+    "ms": 307,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_AUTH_007",
+    "method": "GET",
+    "path": "auth/me",
+    "status": 200,
+    "ms": 294,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Data user berhasil diambil",
+      "data": {
+        "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+        "name": "TEST - QA RPZ Edit",
+        "email": "qa.rpz.1792565250320@komdigi.go.id",
+        "role": "Guest",
+        "created_at": "2026-10-21 06:47:08",
+        "updated_at": "2026-10-21 06:47:34"
+      }
+    }
+  },
+  {
+    "tc": "TC_AUTH_008",
+    "method": "POST",
+    "path": "auth/refresh",
+    "status": 200,
+    "ms": 333,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Token berhasil diperbarui",
+      "data": {
+        "access_token": "***",
+        "type": "bearer",
+        "expires_in": 3600,
+        "user": {
+          "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+          "name": "TEST - QA RPZ Edit",
+          "email": "qa.rpz.1792565250320@komdigi.go.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:47:08",
+          "updated_at": "2026-10-21 06:47:34"
+        }
+      }
+    }
+  },
+  {
+    "tc": "TC_AUTH_008",
+    "method": "POST",
+    "path": "auth/refresh",
+    "status": 401,
+    "ms": 1220,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_AUTH_008",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {
+      "email": "qa.rpz.1792565250320@komdigi.go.id",
+      "password": "***",
+      "remember": false,
+      "recaptcha_token": "***"
+    },
+    "status": 200,
+    "ms": 822,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Login berhasil",
+      "data": {
+        "access_token": "***",
+        "type": "bearer",
+        "expires_in": 3600,
+        "user": {
+          "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+          "name": "TEST - QA RPZ Edit",
+          "email": "qa.rpz.1792565250320@komdigi.go.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:47:08",
+          "updated_at": "2026-10-21 06:47:34"
+        }
+      }
+    }
+  },
+  {
+    "tc": "TC_AUTH_006",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {
+      "email": "qa.rpz.1792565250320@komdigi.go.id",
+      "password": "***",
+      "remember": false,
+      "recaptcha_token": "***"
+    },
+    "status": 200,
+    "ms": 679,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Login berhasil",
+      "data": {
+        "access_token": "***",
+        "type": "bearer",
+        "expires_in": 3600,
+        "user": {
+          "id": "01a15d36-b467-7305-8961-031fa4f47bdf",
+          "name": "TEST - QA RPZ Edit",
+          "email": "qa.rpz.1792565250320@komdigi.go.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:47:08",
+          "updated_at": "2026-10-21 06:47:34"
+        }
+      }
+    }
+  },
+  {
+    "tc": "TC_AUTH_006",
+    "method": "POST",
+    "path": "auth/logout",
+    "status": 200,
+    "ms": 284,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Logout berhasil",
+      "data": null
+    }
+  },
+  {
+    "tc": "TC_AUTH_006",
+    "method": "GET",
+    "path": "auth/me",
+    "status": 401,
+    "ms": 355,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_AUTH_006",
+    "method": "POST",
+    "path": "auth/refresh",
+    "status": 401,
+    "ms": 271,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_GEN_001",
+    "method": "POST",
+    "path": "auth/login",
+    "req": "{\"email\":",
+    "status": 422,
+    "ms": 1170,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "email": [
+          "The email field is required."
+        ],
+        "password": "***",
+        "recaptcha_token": "***"
+      }
+    }
+  },
+  {
+    "tc": "TC_GEN_001",
+    "method": "POST",
+    "path": "auth/login",
+    "req": "{\"email\":\"test.fadhil@yopmail.com\",\"password\":\"Password123\",\"remember\":false,\"recaptcha_token\":\"bypass\"}",
+    "status": 422,
+    "ms": 612,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "email": [
+          "The email field is required."
+        ],
+        "password": "***",
+        "recaptcha_token": "***"
+      }
+    }
+  },
+  {
+    "tc": "TC_GEN_001",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {
+      "email": 123,
+      "password": "***",
+      "remember": "x"
+    },
+    "status": 422,
+    "ms": 597,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "email": [
+          "The email field must be a valid email address."
+        ],
+        "password": "***",
+        "remember": [
+          "The remember field must be true or false."
+        ],
+        "recaptcha_token": "***"
+      }
+    }
+  },
+  {
+    "tc": "TC_GEN_001",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {
+      "email": {},
+      "password": "***"
+    },
+    "status": 422,
+    "ms": 597,
+    "body": {
+      "success": false,
+      "code": "VALIDATION_ERROR",
+      "message": "The given data was invalid.",
+      "error": {
+        "email": [
+          "The email field is required."
+        ],
+        "password": "***",
+        "recaptcha_token": "***"
+      }
+    }
+  },
+  {
+    "tc": "TC_USER_009",
+    "method": "DELETE",
+    "path": "users/01a15d36-b467-7305-8961-031fa4f47bdf",
+    "status": 200,
+    "ms": 531,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Pengguna berhasil dihapus",
+      "data": null
+    }
+  },
+  {
+    "tc": "TC_USER_009",
+    "method": "DELETE",
+    "path": "users/01a15d36-b467-7305-8961-031fa4f47bdf",
+    "status": 404,
+    "ms": 327,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "UnictiveAPI: Resource or Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_USER_009",
+    "method": "GET",
+    "path": "users/01a15d36-b467-7305-8961-031fa4f47bdf",
+    "status": 404,
+    "ms": 394,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "UnictiveAPI: Resource or Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "TC_USER_009",
+    "method": "POST",
+    "path": "auth/login",
+    "req": {
+      "email": "qa.rpz.1792565250320@komdigi.go.id",
+      "password": "***",
+      "remember": false,
+      "recaptcha_token": "***"
+    },
+    "status": 401,
+    "ms": 492,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Email atau password salah",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "isp",
+    "status": 404,
+    "ms": 1235,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "isps",
+    "status": 200,
+    "ms": 627,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Data ISP berhasil diambil",
+      "data": [
+        {
+          "id": "01a15d0e-d2ed-7248-9da5-eea87e2ec89b",
+          "name": "TEST - PT Ambon Telematika",
+          "as_number": "AS990041",
+          "city": "Ambon",
+          "province": "Maluku",
+          "service": "rpz_only",
+          "service_label": "RPZ Only"
+        },
+        {
+          "id": "01a15d0e-d2e4-71a7-b0b4-fb861e3cf01b",
+          "name": "TEST - PT Andalas Net",
+          "as_number": "AS990034",
+          "city": "Padang",
+          "province": "Sumatera Barat",
+          "service": "rpz_only",
+          "service_label": "RPZ Only"
+        },
+        {
+          "id": "01a15d0e-d2d5-72cb-9b63-5de0b5dae881",
+          "name": "TEST - PT Aryaka Lintas Media",
+          "as_number": "AS38896",
+          "city": "Kediri",
+          "province": "Jawa Timur",
+          "service": "rpz_rtbh",
+          "service_label": "RPZ & RTBH"
+        },
+        {
+          "id": "01a15d0e-d2be-73d9-a089-33833422a324",
+          "name": "TEST - PT Balifiber Network",
+          "as_number": "AS45294",
+          "city": "Denpasar",
+          "province": "Bali",
+          "service": "rtbh_only",
+          "service_label": "RTBH Only"
+        },
+        {
+          "id": "01a15d0e-d2ea-72ca-971a-27b416b7e083",
+          "name": "TEST - PT Banua Network",
+          "as_number": "AS990039",
+          "city": "Banjarmasin",
+          "province": "Kalimantan Selatan",
+          "service": "rpz_only",
+          "service_label": "RPZ Only"
+        },
+        {
+          "id": "01a15d0e-d2f1-70b2-be4e-d6faa009a787",
+          "name": "TEST - PT Batam Broadband",
+          "as_number": "AS990044",
+          "city": "Batam",
+          "province": "Kepulauan Riau",
+          "service": "rpz_only",
+          "service_label": "RPZ Only"
+        },
+        {
+          "id": "01a15d0e-d2cc-722a-8853-dc905382cc44",
+          "name": "TEST - PT Biznet Networks",
+          "as_number": "AS18393",
+          "city": "Jakarta Selatan",
+          "province": "DKI Jakarta",
+          "service": "rtbh_only",
+          "service_label": "RTBH Only"
+        },
+        {
+          "id": "01a15d0e-d2f7-7169-8086-d3e7a0778b12",
+          "name": "TEST - PT Bogor Fiber Nusantara",
+          "as_number": "AS990047",
+          "city": "Bogor",
+          "province": "Jawa Barat",
+          "service": "rpz_only",
+          "service_label": "RPZ Only"
+        },
+        {
+          "id": "01a15d0e-d2e0-70fa-b7d0-e4969294422f",
+          "name": "TEST - PT Borneo Broadband Network",
+          "as_number": "AS134630",
+          "city": "Balikpapan",
+          "province": "Kalimantan Timur",
+          "service": "rpz_only",
+          "service_label": "RPZ Only"
+        },
+        {
+          "id": "01a15d0e-d2e1-7206-b97c-013c19650621",
+          "name": "TEST - PT Celebes Media Data",
+          "as_number": "AS134648",
+          "city": "Manado",
+          "province": "Sulawesi Utara",
+          "service": "rpz_only",
+          "service_label": "RPZ Only"
+        },
+        {
+          "id": "01a15d0e-d2f4-728a-badc-48304df50edc",
+          "name": "TEST - PT Cirebon Data Lintas",
+          "as_number": "AS990046",
+          "city": "Cirebon",
+          "province": "Jawa Barat",
+          "service": "rpz_only",
+          "service_label": "RPZ Only"
+        },
+        {
+          "id": "01a15d0e-d2ce-721f-9c8a-0357f570f695",
+          "name": "TEST - PT Citra Nusantara Telekomunikasi",
+          "as_number": "AS23953",
+          "city": "Makassar",
+          "province": "Sulawesi Selatan",
+          "service": "rtbh_only",
+          "service_label": "RTBH Only"
+        },
+        {
+          "id": "01a15d0e-d2dd-7235-94d3-0aaef8d81016",
+          "name": "TEST - PT Cyber Network Indonesia",
+          "as_number": "AS56241",
+          "city": "Medan",
+          "province": "Sumatera Utara",
+          "service": "rpz_rtbh",
+          "service_label": "RPZ & RTBH"
+        },
+        {
+          "id": "01a15d0e-d2d3-7032-a4fb-22dfff392c7b",
+          "name": "TEST - PT Era Global Nusindo",
+          "as_number": "AS38511",
+          "city": "Sidoarjo",
+          "province": "Jawa Timur",
+          "service": "rpz_rtbh",
+          "service_label": "RPZ & RTBH"
+        },
+        {
+          "id": "01a15d0e-d2c7-7248-8c1f-93f45ea10fe0",
+          "name": "TEST - PT FiberStar",
+          "as_number": "AS138088",
+          "city": "Jakarta Utara",
+          "province": "DKI Jakarta",
+          "service": "rtbh_only",
+          "service_label": "RTBH Only"
+        }
+      ],
+      "links": {
+        "first": "http://be-dashboard-rpz.unictive.net/api/v1/isps?page=1",
+        "last": "http://be-dashboard-rpz.unictive.net/api/v1/isps?page=4",
+        "prev": null,
+        "next": "http://be-dashboard-rpz.unictive.net/api/v1/isps?page=2"
+      },
+      "meta": {
+        "path": "http://be-dashboard-rpz.unictive.net/api/v1/isps",
+        "current_page": 1,
+        "last_page": 4,
+        "per_page": 15,
+        "total": 48,
+        "from": 1,
+        "to": 15
+      }
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "rpz",
+    "status": 200,
+    "ms": 664,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Data RPZ berhasil diambil",
+      "data": [
+        {
+          "id": "01a15c7b-425f-7203-8caf-64a0770ef5dd",
+          "last_sync_at": "2026-05-31 23:59",
+          "as_number": "AS990044",
+          "isp_name": "TEST - PT Batam Broadband",
+          "ip_address": "103.144.182.21",
+          "last_serial": 26053101,
+          "method": "AXFR",
+          "first_sync_at": "2026-05-31 00:17",
+          "city": "Batam",
+          "province": "Kepulauan Riau"
+        },
+        {
+          "id": "01a15c7b-4260-72a4-99de-5431e1ee85ff",
+          "last_sync_at": "2026-05-31 23:59",
+          "as_number": "AS134630",
+          "isp_name": "TEST - PT Borneo Broadband Network",
+          "ip_address": "157.15.174.2",
+          "last_serial": 26053101,
+          "method": "AXFR",
+          "first_sync_at": "2026-05-31 06:47",
+          "city": "Balikpapan",
+          "province": "Kalimantan Timur"
+        },
+        {
+          "id": "01a15c7b-425f-7203-8caf-64a06fea7e7e",
+          "last_sync_at": "2026-05-31 23:59",
+          "as_number": "AS990042",
+          "isp_name": "TEST - PT Kupang Akses Data",
+          "ip_address": "103.144.171.174",
+          "last_serial": 26053101,
+          "method": "AXFR",
+          "first_sync_at": "2026-05-31 00:04",
+          "city": "Kupang",
+          "province": "Nusa Tenggara Timur"
+        },
+        {
+          "id": "01a15c7b-425e-71b4-8ece-61e44d5865ed",
+          "last_sync_at": "2026-05-31 23:58",
+          "as_number": "AS990039",
+          "isp_name": "TEST - PT Banua Network",
+          "ip_address": "202.62.8.231",
+          "last_serial": 26053101,
+          "method": "AXFR",
+          "first_sync_at": "2026-05-31 00:00",
+          "city": "Banjarmasin",
+          "province": "Kalimantan Selatan"
+        },
+        {
+          "id": "01a15c7b-425f-7203-8caf-64a06f33d441",
+          "last_sync_at": "2026-05-31 23:58",
+          "as_number": "AS990036",
+          "isp_name": "TEST - PT Riau Data Prima",
+          "ip_address": "202.62.8.228",
+          "last_serial": 26053101,
+          "method": "AXFR",
+          "first_sync_at": "2026-05-31 00:04",
+          "city": "Pekanbaru",
+          "province": "Riau"
+        },
+        {
+          "id": "01a15c7b-425e-71b4-8ece-61e44dc82c88",
+          "last_sync_at": "2026-05-31 23:57",
+          "as_number": "AS58376",
+          "isp_name": "TEST - PT Jaringanku Sarana Nusantara",
+          "ip_address": "115.178.180.42",
+          "last_serial": 26053101,
+          "method": "AXFR",
+          "first_sync_at": "2026-05-31 00:01",
+          "city": "Semarang",
+          "province": "Jawa Tengah"
+        },
+        {
+          "id": "01a15c7b-425f-7203-8caf-64a08492afff",
+          "last_sync_at": "2026-05-31 23:57",
+          "as_number": "AS990043",
+          "isp_name": "TEST - PT Jambi Media Net",
+          "ip_address": "103.186.59.69",
+          "last_serial": 26053101,
+          "method": "AXFR",
+          "first_sync_at": "2026-05-31 00:53",
+          "city": "Jambi",
+          "province": "Jambi"
+        },
+        {
+          "id": "01a15c7b-4260-72a4-99de-5431ea4304c8",
+          "last_sync_at": "2026-05-31 23:55",
+          "as_number": "AS134630",
+          "isp_name": "TEST - PT Borneo Broadband Network",
+          "ip_address": "103.133.63.242",
+          "last_serial": 26053101,
+          "method": "AXFR",
+          "first_sync_at": "2026-05-31 09:08",
+          "city": "Balikpapan",
+          "province": "Kalimantan Timur"
+        },
+        {
+          "id": "01a15c7b-4261-731c-ac37-a1de90d7c20f",
+          "last_sync_at": "2026-05-31 23:55",
+          "as_number": "AS45786",
+          "isp_name": "TEST - PT Smartfren Telecom Tbk",
+          "ip_address": "103.148.24.19",
+          "last_serial": 26053101,
+          "method": "AXFR",
+          "first_sync_at": "2026-05-31 23:55",
+          "city": "Jakarta Pusat",
+          "province": "DKI Jakarta"
+        },
+        {
+          "id": "01a15c7b-425f-7203-8caf-64a07b452370",
+          "last_sync_at": "2026-05-31 23:54",
+          "as_number": "AS990039",
+          "isp_name": "TEST - PT Banua Network",
+          "ip_address": "103.238.200.14",
+          "last_serial": 26053101,
+          "method": "AXFR",
+          "first_sync_at": "2026-05-31 00:26",
+          "city": "Banjarmasin",
+          "province": "Kalimantan Selatan"
+        },
+        {
+          "id": "01a15c7b-4261-731c-ac37-a1de80e17e8c",
+          "last_sync_at": "2026-05-31 23:53",
+          "as_number": "AS990034",
+          "isp_name": "TEST - PT Andalas Net",
+          "ip_address": "103.180.127.13",
+          "last_serial": 26053101,
+          "method": "AXFR",
+          "first_sync_at": "2026-05-31 21:18",
+          "city": "Padang",
+          "province": "Sumatera Barat"
+        },
+        {
+          "id": "01a15c7b-425f-7203-8caf-64a0734b2ecf",
+          "last_sync_at": "2026-05-31 23:53",
+          "as_number": "AS990041",
+          "isp_name": "TEST - PT Ambon Telematika",
+          "ip_address": "103.144.171.162",
+          "last_serial": 26053101,
+          "method": "AXFR",
+          "first_sync_at": "2026-05-31 00:08",
+          "city": "Ambon",
+          "province": "Maluku"
+        },
+        {
+          "id": "01a15c7b-425f-7203-8caf-64a07c1d7b6a",
+          "last_sync_at": "2026-05-31 23:52",
+          "as_number": null,
+          "isp_name": "Tidak Teridentifikasi",
+          "ip_address": "115.178.181.62",
+          "last_serial": 26053101,
+          "method": "AXFR",
+          "first_sync_at": "2026-05-31 00:27",
+          "city": null,
+          "province": null
+        },
+        {
+          "id": "01a15c7b-425f-7203-8caf-64a07f5afd15",
+          "last_sync_at": "2026-05-31 23:51",
+          "as_number": null,
+          "isp_name": "Tidak Teridentifikasi",
+          "ip_address": "122.200.48.14",
+          "last_serial": 26053101,
+          "method": "AXFR",
+          "first_sync_at": "2026-05-31 00:36",
+          "city": null,
+          "province": null
+        },
+        {
+          "id": "01a15c7b-4260-72a4-99de-5431f02d6d2b",
+          "last_sync_at": "2026-05-31 23:49",
+          "as_number": "AS45302",
+          "isp_name": "TEST - PT Netspeed Broadband Indonesia",
+          "ip_address": "103.147.77.190",
+          "last_serial": 26053101,
+          "method": "AXFR",
+          "first_sync_at": "2026-05-31 13:26",
+          "city": "Bekasi",
+          "province": "Jawa Barat"
+        }
+      ],
+      "links": {
+        "first": "http://be-dashboard-rpz.unictive.net/api/v1/rpz?page=1",
+        "last": "http://be-dashboard-rpz.unictive.net/api/v1/rpz?page=21",
+        "prev": null,
+        "next": "http://be-dashboard-rpz.unictive.net/api/v1/rpz?page=2"
+      },
+      "meta": {
+        "path": "http://be-dashboard-rpz.unictive.net/api/v1/rpz",
+        "current_page": 1,
+        "last_page": 21,
+        "per_page": 15,
+        "total": 314,
+        "from": 1,
+        "to": 15
+      }
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "sync",
+    "status": 404,
+    "ms": 614,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "sync/status",
+    "status": 404,
+    "ms": 585,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "dashboard",
+    "status": 404,
+    "ms": 1347,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "dashboard/summary",
+    "status": 404,
+    "ms": 1028,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "domains",
+    "status": 404,
+    "ms": 862,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "blocklist",
+    "status": 404,
+    "ms": 690,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "roles",
+    "status": 404,
+    "ms": 584,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "permissions",
+    "status": 404,
+    "ms": 1468,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "users?search=a",
+    "status": 200,
+    "ms": 1596,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Data pengguna berhasil diambil",
+      "data": [
+        {
+          "id": "01a15d30-203c-7255-8c94-29ba2d81972a",
+          "name": "admin123",
+          "email": "admin@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 06:39:57",
+          "updated_at": "2026-10-21 06:44:01"
+        },
+        {
+          "id": "01a15d1c-b423-716a-9b92-a8567058c405",
+          "name": "ikbar test 3",
+          "email": "ikbar3@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:18:44",
+          "updated_at": "2026-10-21 06:18:44"
+        },
+        {
+          "id": "01a15cc4-9693-73f0-9ac4-f75f79f47e68",
+          "name": "Jam User Test",
+          "email": "userjamv2@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 04:42:29",
+          "updated_at": "2026-10-21 06:46:44"
+        },
+        {
+          "id": "01a15cc4-67a1-726b-95b1-b4fc1986e569",
+          "name": "testing_fadhil",
+          "email": "test.fadhil@yopmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 04:42:17",
+          "updated_at": "2026-10-21 04:42:17"
+        },
+        {
+          "id": "01a15c80-7eda-72ef-97c1-82717a314cea",
+          "name": "Said Tester",
+          "email": "saidunictive@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 03:28:07",
+          "updated_at": "2026-10-21 03:28:07"
+        },
+        {
+          "id": "01a15c7e-8f4e-71b2-99ed-a2ba43c1d5a8",
+          "name": "Said Test V2",
+          "email": "saidunictive1@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 03:26:00",
+          "updated_at": "2026-10-21 03:26:00"
+        },
+        {
+          "id": "01a15c6d-c46f-70e4-b25d-a772adb2fda6",
+          "name": "ikbar test 2",
+          "email": "ikbar2@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 03:07:40",
+          "updated_at": "2026-10-21 03:07:40"
+        },
+        {
+          "id": "01a15c4a-514d-704a-a2ab-89a2eecdd6b3",
+          "name": "feisal",
+          "email": "feisal.dharma.yuda@unictive.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 02:28:56",
+          "updated_at": "2026-10-21 03:26:54"
+        },
+        {
+          "id": "01a158c8-19e3-720f-9ed4-c14fb1dcf7ac",
+          "name": "Ikbar Test",
+          "email": "ikbarysme@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 10:07:51",
+          "updated_at": "2026-10-20 10:07:51"
+        },
+        {
+          "id": "01a158a1-2f86-702b-b664-de20927ca1c1",
+          "name": "Arie",
+          "email": "arie@unictive.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 09:25:20",
+          "updated_at": "2026-10-20 09:25:20"
+        },
+        {
+          "id": "01a15858-24f7-7216-87d8-518ee5bf388c",
+          "name": "Said Tester",
+          "email": "said.tester.new@example.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 08:05:34",
+          "updated_at": "2026-10-21 04:39:35"
+        },
+        {
+          "id": "01a1584b-1fee-7352-8d43-62bcd372d50c",
+          "name": "TEST - Manajemen Pengguna Edit",
+          "email": "test.pengguna50@komdigi.go.id",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 07:51:20",
+          "updated_at": "2026-10-21 04:43:58"
+        }
+      ],
+      "links": {
+        "first": "http://be-dashboard-rpz.unictive.net/api/v1/users?search=a&page=1",
+        "last": "http://be-dashboard-rpz.unictive.net/api/v1/users?search=a&page=1",
+        "prev": null,
+        "next": null
+      },
+      "meta": {
+        "path": "http://be-dashboard-rpz.unictive.net/api/v1/users",
+        "current_page": 1,
+        "last_page": 1,
+        "per_page": 15,
+        "total": 12,
+        "from": 1,
+        "to": 12
+      }
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "users?role=readonly",
+    "status": 200,
+    "ms": 601,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Data pengguna berhasil diambil",
+      "data": [
+        {
+          "id": "01a15d1c-b423-716a-9b92-a8567058c405",
+          "name": "ikbar test 3",
+          "email": "ikbar3@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:18:44",
+          "updated_at": "2026-10-21 06:18:44"
+        },
+        {
+          "id": "01a15c7e-8f4e-71b2-99ed-a2ba43c1d5a8",
+          "name": "Said Test V2",
+          "email": "saidunictive1@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 03:26:00",
+          "updated_at": "2026-10-21 03:26:00"
+        },
+        {
+          "id": "01a15c6d-c46f-70e4-b25d-a772adb2fda6",
+          "name": "ikbar test 2",
+          "email": "ikbar2@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 03:07:40",
+          "updated_at": "2026-10-21 03:07:40"
+        },
+        {
+          "id": "01a15c4a-514d-704a-a2ab-89a2eecdd6b3",
+          "name": "feisal",
+          "email": "feisal.dharma.yuda@unictive.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 02:28:56",
+          "updated_at": "2026-10-21 03:26:54"
+        },
+        {
+          "id": "01a158bc-c9cf-7380-90a5-1da7ac7de400",
+          "name": "Testing User",
+          "email": "testing@unictive.com",
+          "role": "Guest",
+          "created_at": "2026-10-20 09:55:29",
+          "updated_at": "2026-10-21 03:21:30"
+        }
+      ],
+      "links": {
+        "first": "http://be-dashboard-rpz.unictive.net/api/v1/users?role=readonly&page=1",
+        "last": "http://be-dashboard-rpz.unictive.net/api/v1/users?role=readonly&page=1",
+        "prev": null,
+        "next": null
+      },
+      "meta": {
+        "path": "http://be-dashboard-rpz.unictive.net/api/v1/users",
+        "current_page": 1,
+        "last_page": 1,
+        "per_page": 15,
+        "total": 5,
+        "from": 1,
+        "to": 5
+      }
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "users?sort=name",
+    "status": 200,
+    "ms": 589,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Data pengguna berhasil diambil",
+      "data": [
+        {
+          "id": "01a15d30-203c-7255-8c94-29ba2d81972a",
+          "name": "admin123",
+          "email": "admin@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 06:39:57",
+          "updated_at": "2026-10-21 06:44:01"
+        },
+        {
+          "id": "01a15d1c-b423-716a-9b92-a8567058c405",
+          "name": "ikbar test 3",
+          "email": "ikbar3@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 06:18:44",
+          "updated_at": "2026-10-21 06:18:44"
+        },
+        {
+          "id": "01a15cc4-9693-73f0-9ac4-f75f79f47e68",
+          "name": "Jam User Test",
+          "email": "userjamv2@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 04:42:29",
+          "updated_at": "2026-10-21 06:46:44"
+        },
+        {
+          "id": "01a15cc4-67a1-726b-95b1-b4fc1986e569",
+          "name": "testing_fadhil",
+          "email": "test.fadhil@yopmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 04:42:17",
+          "updated_at": "2026-10-21 04:42:17"
+        },
+        {
+          "id": "01a15c80-7eda-72ef-97c1-82717a314cea",
+          "name": "Said Tester",
+          "email": "saidunictive@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-21 03:28:07",
+          "updated_at": "2026-10-21 03:28:07"
+        },
+        {
+          "id": "01a15c7e-8f4e-71b2-99ed-a2ba43c1d5a8",
+          "name": "Said Test V2",
+          "email": "saidunictive1@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 03:26:00",
+          "updated_at": "2026-10-21 03:26:00"
+        },
+        {
+          "id": "01a15c6d-c46f-70e4-b25d-a772adb2fda6",
+          "name": "ikbar test 2",
+          "email": "ikbar2@gmail.com",
+          "role": "Guest",
+          "created_at": "2026-10-21 03:07:40",
+          "updated_at": "2026-10-21 03:07:40"
+        },
+        {
+          "id": "01a15c4a-514d-704a-a2ab-89a2eecdd6b3",
+          "name": "feisal",
+          "email": "feisal.dharma.yuda@unictive.id",
+          "role": "Guest",
+          "created_at": "2026-10-21 02:28:56",
+          "updated_at": "2026-10-21 03:26:54"
+        },
+        {
+          "id": "01a158c8-19e3-720f-9ed4-c14fb1dcf7ac",
+          "name": "Ikbar Test",
+          "email": "ikbarysme@gmail.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 10:07:51",
+          "updated_at": "2026-10-20 10:07:51"
+        },
+        {
+          "id": "01a158bc-c9cf-7380-90a5-1da7ac7de400",
+          "name": "Testing User",
+          "email": "testing@unictive.com",
+          "role": "Guest",
+          "created_at": "2026-10-20 09:55:29",
+          "updated_at": "2026-10-21 03:21:30"
+        },
+        {
+          "id": "01a158a1-2f86-702b-b664-de20927ca1c1",
+          "name": "Arie",
+          "email": "arie@unictive.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 09:25:20",
+          "updated_at": "2026-10-20 09:25:20"
+        },
+        {
+          "id": "01a15858-24f7-7216-87d8-518ee5bf388c",
+          "name": "Said Tester",
+          "email": "said.tester.new@example.com",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 08:05:34",
+          "updated_at": "2026-10-21 04:39:35"
+        },
+        {
+          "id": "01a1584b-1fee-7352-8d43-62bcd372d50c",
+          "name": "TEST - Manajemen Pengguna Edit",
+          "email": "test.pengguna50@komdigi.go.id",
+          "role": "Super Admin",
+          "created_at": "2026-10-20 07:51:20",
+          "updated_at": "2026-10-21 04:43:58"
+        }
+      ],
+      "links": {
+        "first": "http://be-dashboard-rpz.unictive.net/api/v1/users?sort=name&page=1",
+        "last": "http://be-dashboard-rpz.unictive.net/api/v1/users?sort=name&page=1",
+        "prev": null,
+        "next": null
+      },
+      "meta": {
+        "path": "http://be-dashboard-rpz.unictive.net/api/v1/users",
+        "current_page": 1,
+        "last_page": 1,
+        "per_page": 15,
+        "total": 13,
+        "from": 1,
+        "to": 13
+      }
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "auth/forgot-password",
+    "status": 404,
+    "ms": 616,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "auth/reset-password",
+    "status": 404,
+    "ms": 1561,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "auth/logout-all",
+    "status": 404,
+    "ms": 572,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "auth/sessions",
+    "status": 404,
+    "ms": 762,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "users/1/activate",
+    "status": 404,
+    "ms": 834,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "users/1/deactivate",
+    "status": 404,
+    "ms": 604,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "audit-logs",
+    "status": 404,
+    "ms": 616,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "logs",
+    "status": 404,
+    "ms": 556,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "health",
+    "status": 404,
+    "ms": 579,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "docs",
+    "status": 404,
+    "ms": 564,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "api-docs",
+    "status": 404,
+    "ms": 1205,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "rpz/isps",
+    "status": 404,
+    "ms": 587,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "rpz/domains",
+    "status": 404,
+    "ms": 585,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "rpz/sync",
+    "status": 404,
+    "ms": 597,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "rpz/zones",
+    "status": 404,
+    "ms": 666,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "rpz/summary",
+    "status": 200,
+    "ms": 657,
+    "body": {
+      "success": true,
+      "code": "SUCCESS",
+      "message": "Ringkasan RPZ berhasil diambil",
+      "data": {
+        "total_isp": 28,
+        "total_ip": 314,
+        "total_axfr": 304,
+        "total_ixfr": 10
+      }
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "auth/login",
+    "status": 404,
+    "ms": 602,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "auth/logout",
+    "status": 404,
+    "ms": 558,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  }
+]
