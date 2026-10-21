@@ -1,0 +1,327 @@
+[
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "isp",
+    "status": 404,
+    "ms": 261,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "isps",
+    "status": 404,
+    "ms": 181,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "rpz",
+    "status": 401,
+    "ms": 184,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "sync",
+    "status": 404,
+    "ms": 185,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "sync/status",
+    "status": 404,
+    "ms": 156,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "dashboard",
+    "status": 404,
+    "ms": 152,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "dashboard/summary",
+    "status": 404,
+    "ms": 149,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "domains",
+    "status": 404,
+    "ms": 153,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "blocklist",
+    "status": 404,
+    "ms": 150,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "roles",
+    "status": 404,
+    "ms": 181,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "permissions",
+    "status": 404,
+    "ms": 183,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "users?search=a",
+    "status": 401,
+    "ms": 181,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "users?role=readonly",
+    "status": 401,
+    "ms": 167,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "users?sort=name",
+    "status": 401,
+    "ms": 145,
+    "body": {
+      "success": false,
+      "code": "UNAUTHORIZED",
+      "message": "Sesi tidak valid atau telah berakhir, silakan login ulang.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "auth/forgot-password",
+    "status": 404,
+    "ms": 209,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "auth/reset-password",
+    "status": 404,
+    "ms": 144,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "auth/logout-all",
+    "status": 404,
+    "ms": 171,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "auth/sessions",
+    "status": 404,
+    "ms": 152,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "users/1/activate",
+    "status": 404,
+    "ms": 196,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "users/1/deactivate",
+    "status": 404,
+    "ms": 162,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "audit-logs",
+    "status": 404,
+    "ms": 186,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "logs",
+    "status": 404,
+    "ms": 152,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "health",
+    "status": 404,
+    "ms": 177,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "docs",
+    "status": 404,
+    "ms": 208,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  },
+  {
+    "tc": "DISCOVERY",
+    "method": "GET",
+    "path": "api-docs",
+    "status": 404,
+    "ms": 156,
+    "body": {
+      "success": false,
+      "code": "NOT_FOUND",
+      "message": "Endpoint not found.",
+      "error": null
+    }
+  }
+]
